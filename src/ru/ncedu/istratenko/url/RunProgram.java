@@ -1,5 +1,7 @@
 package ru.ncedu.istratenko.url;
 
+import com.sun.org.apache.xerces.internal.impl.xpath.regex.Match;
+
 import java.io.File;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -15,6 +17,10 @@ public class RunProgram {
     private String path = null;
     private boolean openFile=false;
 
+    /**
+     *
+     * @param url типа String
+     */
     public RunProgram(String url){
         try {
             this.url=new URL(url);
@@ -57,12 +63,15 @@ public class RunProgram {
 
     }
 
+    /**
+     * скачивает файл с url и сохраняет его по заданному пути.
+     * Если файл html, то в отдельную поддиректорию сохраняются все ресурсы в тегах link и img
+     * Если в качестве параметра указана опция открытия файла после скачивания, то файл откроется
+     */
     public void executeProgram(){
         Downloader d = new Downloader();
-        if (url.getProtocol().startsWith("ftp")) {
-            d.downloadFTPFile(url, path);
-        } else {
-            d.downloadHTMLFile(url, path);
+        if(d.downloadFile(url, path).getAbsolutePath().endsWith("html")) {
+            d.downloadRsc();
         }
         if (openFile) {
             d.openFile();

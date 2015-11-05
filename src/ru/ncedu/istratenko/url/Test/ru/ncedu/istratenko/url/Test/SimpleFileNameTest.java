@@ -77,13 +77,13 @@ public class SimpleFileNameTest {
     @Test
     public void testGiveNameOfFileThird() throws Exception {
         try{
-            check= c.newInstance(new Object[]{new URL("http://www.iphones.ru/iNotes/495034")});
+            check= c.newInstance(new Object[]{new URL("http://www.iphones.ru/wp-content/uploads/2015/11/wa1-345x195.jpg")});
         } catch(Exception e){
             fail("New object could not created");
         }
         try{
             String name=(String)method.invoke(check, null);
-            assertEquals("Name 3 mistake", "/495034.html", name);
+            assertEquals("Name 3 mistake", "/wa1-345x195.jpg", name);
         } catch(Exception e){
             fail("Error in getName");
         }
